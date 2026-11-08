@@ -18,7 +18,7 @@
       <p id="mensagem">Aguarde. Você será redirecionado para concluir a conexão.</p>
       <p id="erro" class="erro" hidden></p>
       <p>
-        <a id="continuar" href="../">Continuar no site</a>
+        <a id="continuar" href="#" hidden>Continuar autorização</a>
       </p>
     </section>
 
@@ -43,6 +43,9 @@
         aviso.hidden = true;
         caixaErro.hidden = false;
         caixaErro.textContent = "Não foi possível concluir a autorização: " + descricao;
+        continua.href = "../";
+        continua.textContent = "Voltar ao site";
+        continua.hidden = false;
         return;
       }
 
@@ -52,6 +55,9 @@
         aviso.hidden = true;
         caixaErro.hidden = false;
         caixaErro.textContent = "Código de autorização ausente. Volte ao app e tente novamente.";
+        continua.href = "../";
+        continua.textContent = "Voltar ao site";
+        continua.hidden = false;
         return;
       }
 
@@ -59,6 +65,8 @@
       proximo.searchParams.set("code", code);
       if (state) proximo.searchParams.set("state", state);
       continua.href = proximo.toString();
+      continua.textContent = "Continuar autorização";
+      continua.hidden = false;
       window.location.replace(proximo.toString());
     })();
   </script>
