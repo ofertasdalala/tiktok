@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conectar TikTok | ofertasdalala</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <p class="selo">ofertasdalala</p>
+      <h1>Conectar TikTok</h1>
+      <p class="atualizado">Encaminhando a autorização com segurança.</p>
+    </header>
+
+    <section>
+      <p id="mensagem">Aguarde. Você será redirecionado para concluir a conexão.</p>
+      <p id="erro" class="erro" hidden></p>
+      <p>
+        <a id="continuar" href="../">Continuar no site</a>
+      </p>
+    </section>
+
+    <footer class="rodape">
+      <a href="../politica.html">Política de Privacidade</a>
+      <a href="../termos.html">Termos de Serviço</a>
+      <a href="../">Início</a>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const destino = "https://product-appraisal-finch.ngrok-free.dev/webhook/tiktok-callback";
+      const params = new URLSearchParams(window.location.search);
+      const erro = params.get("error");
+      const continua = document.getElementById("continuar");
+      const aviso = document.getElementById("mensagem");
+      const caixaErro = document.getElementById("erro");
+
+      if (erro) {
+        const descricao = params.get("error_description") || erro;
+        aviso.hidden = true;
+        caixaErro.hidden = false;
+        caixaErro.textContent = "Não foi possível concluir a autorização: " + descricao;
+        return;
+      }
+
+      const code = params.get("code");
+      const state = params.get("state");
+      if (!code) {
+        aviso.hidden = true;
+        caixaErro.hidden = false;
+        caixaErro.textContent = "Código de autorização ausente. Volte ao app e tente novamente.";
+        return;
+      }
+
+      const proximo = new URL(destino);
+      proximo.searchParams.set("code", code);
+      if (state) proximo.searchParams.set("state", state);
+      continua.href = proximo.toString();
+      window.location.replace(proximo.toString());
+    })();
+  </script>
+</body>
+</html>
