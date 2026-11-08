@@ -48,6 +48,21 @@
     </section>
 
     <section>
+      <h2>Conectar conta</h2>
+      <p>
+        Autorize o app a publicar vídeos no seu perfil do TikTok. O envio usa os
+        escopos <code>user.info.basic</code> e <code>video.publish</code>.
+      </p>
+      <p>
+        <a id="conectar" class="botao" href="#">Conectar TikTok</a>
+      </p>
+      <p class="aviso">
+        A autorização abre a página oficial do TikTok. Nenhuma senha é pedida
+        neste site.
+      </p>
+    </section>
+
+    <section>
       <h2>Contato</h2>
       <p>
         Dúvidas sobre a integração:
@@ -61,5 +76,20 @@
       <a href="https://ofertasdalala.github.io/tiktok/">Início</a>
     </footer>
   </main>
+
+  <script>
+    (() => {
+      const cliente = "sbaw8o228pvzmyu8tv";
+      const destino = "https://ofertasdalala.github.io/tiktok/callback/";
+      const estado = crypto.randomUUID();
+      const url = new URL("https://www.tiktok.com/v2/auth/authorize/");
+      url.searchParams.set("client_key", cliente);
+      url.searchParams.set("scope", "user.info.basic,video.publish");
+      url.searchParams.set("response_type", "code");
+      url.searchParams.set("redirect_uri", destino);
+      url.searchParams.set("state", estado);
+      document.getElementById("conectar").href = url.toString();
+    })();
+  </script>
 </body>
 </html>
