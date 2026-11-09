@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ofertasdalala | Integração TikTok</title>
-  <meta name="description" content="Ferramenta da ofertasdalala para preparar e enviar rascunhos de vídeos promocionais ao TikTok.">
+  <meta name="description" content="Ferramenta da ofertasdalala para publicar vídeos promocionais no perfil do TikTok com autorização do usuário.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,8 +19,8 @@
       <h2>O que este app faz</h2>
       <p>
         A ofertasdalala ajuda criadores de conteúdo a organizar vídeos de produtos
-        e enviar rascunhos para o TikTok. O criador revisa o vídeo no aplicativo do
-        TikTok e decide quando publicar.
+        e publicar no próprio perfil do TikTok. A publicação só acontece depois de
+        uma ação explícita do usuário.
       </p>
     </section>
 
@@ -29,17 +29,18 @@
       <ol>
         <li>O usuário conecta a conta do TikTok com autorização OAuth.</li>
         <li>O app recebe informações básicas do perfil autorizado.</li>
-        <li>O usuário escolhe um vídeo promocional.</li>
-        <li>O vídeo é enviado como rascunho para a caixa de entrada do TikTok.</li>
-        <li>O usuário revisa e publica manualmente no TikTok.</li>
+        <li>O usuário escolhe um vídeo promocional e escreve a legenda.</li>
+        <li>O usuário clica em Publicar agora.</li>
+        <li>O app envia o vídeo pela Content Posting API para o perfil autorizado.</li>
+        <li>O vídeo aparece no perfil do TikTok do usuário.</li>
       </ol>
     </section>
 
     <section>
       <h2>Dados e privacidade</h2>
       <p>
-        O app usa apenas os dados necessários para conectar a conta e enviar o
-        rascunho. Não publicamos automaticamente no perfil do usuário.
+        O app usa apenas os dados necessários para conectar a conta e publicar o
+        vídeo. Nada é publicado sem confirmação do usuário.
       </p>
       <p>
         Leia a <a href="politica.html">Política de Privacidade</a> e os
@@ -80,7 +81,7 @@
   <script>
     (() => {
       const cliente = "sbaw8o228pvzmyu8tv";
-      const destino = "https://product-appraisal-finch.ngrok-free.dev/webhook/tiktok-callback";
+      const destino = "https://ofertasdalala.github.io/tiktok/callback/";
       const estado = crypto.randomUUID();
       const url = new URL("https://www.tiktok.com/v2/auth/authorize/");
       url.searchParams.set("client_key", cliente);
